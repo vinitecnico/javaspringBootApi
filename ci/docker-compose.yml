@@ -1,9 +1,9 @@
 version: '3.5'
 services:
     database:
-        image: backoffice-db
+        image: mysql
         ports:
-            - "3306:3036"
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: RootPassword
             MYSQL_DATABASE: Backoffice
