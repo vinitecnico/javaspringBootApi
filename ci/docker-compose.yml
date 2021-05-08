@@ -1,9 +1,5 @@
 version: '3.5'
 services:
-    backend:
-        image: backoffice-backend
-        ports:
-            - "80:80"
     database:
         image: backoffice-db
         ports:
@@ -13,3 +9,7 @@ services:
             MYSQL_DATABASE: Backoffice
             MYSQL_USER: MainUser
             MYSQL_PASSWORD: MainPassword
+            volumes:
+                mysql_data:/var/lib/mysql
+volumes:
+    mysql_data:

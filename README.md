@@ -1,14 +1,8 @@
-docker build -t backoffice-db .
+## start docker
 
-docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=RootPassword -e MYSQL_DATABASE=Backoffice -e MYSQL_USER=MainUser -e MYSQL_PASSWORD=MainPassword backoffice-db
+```docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=RootPassword -e MYSQL_DATABASE=Backoffice -e MYSQL_USER=MainUser -e MYSQL_PASSWORD=MainPassword mysql```
 
-Acesso Manual ao Banco
-Para acessar o banco de dados, após ter executado o container é necessário executar os comandos.
-$ docker exec -it container_id bash
-root@container_id:/# mysql -uroot -p
-Enter password: RootPassword
-
-##Uma Aplicação Acessando o Banco
+## Uma Aplicação Acessando o Banco
 informações para acessar o banco de dados:
 Nome do Banco de Dados: Backoffice;
 Usuário: MainUser;
@@ -16,5 +10,12 @@ Senha: MainPassword;
 Host: localhost ou IP;
 Porta: 3306;
 
+# run docker
+docker-compose up -d
 
-docker-compose up
+# stop docker
+```docker-compose down```
+
+#if you want to delete all data then you will use
+
+```docker-compose down -v```
