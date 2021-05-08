@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.treinamento.springbootapi.entity.Pessoa;
 import br.com.treinamento.springbootapi.repository.PessoaRepository;
+import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,8 @@ public class HelloController {
         return "hello world";
     }
     
-    @RequestMapping(value = "/pessoa/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns a list of people")
+    @RequestMapping(value = "/pessoa/{id}", method = RequestMethod.GET, produces="application/json")
     public ResponseEntity<Pessoa> GetById(@PathVariable(value = "id") long id)
     {
         Optional<Pessoa> pessoa = _pessoaRepository.findById(id);
@@ -44,7 +46,7 @@ public class HelloController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/pessoa", method =  RequestMethod.POST)
+    @RequestMapping(value = "/pessoa", method =  RequestMethod.POST, produces="application/json", consumes="application/json")
     public Pessoa Post(@RequestBody Pessoa pessoa)
     {
         return _pessoaRepository.save(pessoa);
