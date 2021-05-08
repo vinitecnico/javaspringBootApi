@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * HelloController
  */
 @RestController
+@RequestMapping("/api/pessoa")
 public class HelloController {
     @Autowired
     private PessoaRepository _pessoaRepository;
@@ -36,7 +37,7 @@ public class HelloController {
     }
     
     @ApiOperation(value = "Returns a list of people")
-    @RequestMapping(value = "/pessoa/{id}", method = RequestMethod.GET, produces="application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces="application/json")
     public ResponseEntity<Pessoa> GetById(@PathVariable(value = "id") long id)
     {
         Optional<Pessoa> pessoa = _pessoaRepository.findById(id);
@@ -46,13 +47,13 @@ public class HelloController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/pessoa", method =  RequestMethod.POST, produces="application/json", consumes="application/json")
+    @RequestMapping(method =  RequestMethod.POST, produces="application/json", consumes="application/json")
     public Pessoa Post(@RequestBody Pessoa pessoa)
     {
         return _pessoaRepository.save(pessoa);
     }
 
-    @RequestMapping(value = "/pessoa/{id}", method =  RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
     public ResponseEntity<Pessoa> Put(@PathVariable(value = "id") long id, @RequestBody Pessoa newPessoa)
     {
         Optional<Pessoa> oldPessoa = _pessoaRepository.findById(id);
@@ -66,7 +67,7 @@ public class HelloController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/pessoa/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id)
     {
         Optional<Pessoa> pessoa = _pessoaRepository.findById(id);

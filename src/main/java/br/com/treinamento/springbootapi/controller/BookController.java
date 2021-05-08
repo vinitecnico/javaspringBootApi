@@ -30,13 +30,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * BookController
  */
 @RestController
+@RequestMapping("/api/book")
 public class BookController {
     @Autowired
     private BookRepository _bookRepository;
     @Autowired
     private PageRepository _pageRepository;
 
-    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Book> GetById(@PathVariable(value = "id") long id) {
         Optional<Book> book = _bookRepository.findById(id);
         if (book.isPresent())
@@ -45,7 +46,7 @@ public class BookController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/book", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Book Post(@RequestBody Book book) {
         // create a new book
         Book _book = new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getIsbn());
