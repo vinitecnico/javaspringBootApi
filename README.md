@@ -41,3 +41,7 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=RootPassword -e MYSQL_DATABASE
 ## Swagger doc
 
 ```` http://localhost:8080/swagger-ui.html````
+
+## RUN project with maven
+
+```` mvn spring-boot:run ````
