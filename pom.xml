@@ -36,7 +36,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Documenta a API Rest -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
