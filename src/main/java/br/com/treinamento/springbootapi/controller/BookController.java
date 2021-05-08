@@ -48,13 +48,15 @@ public class BookController {
     @RequestMapping(value = "/book", method = RequestMethod.POST)
     public Book Post(@RequestBody Book book) {
         // create a new book
-        Book _book = new Book("Java 101", "John Doe", "123456");
+        Book _book = new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getIsbn());
 
         // save the book
         _bookRepository.save(_book);
-        Page _page = new Page(1, "Introduction contents", "Introduction", _book);
 
-        _pageRepository.save(_page);
+        for (Page page : book.getPages()) {
+            Page _page = new Page(page.getId(), 1, page.getContent(), page.getChapter(), _book);
+            _pageRepository.save(_page);
+        }
 
         return _book;
     }

@@ -21,14 +21,15 @@ public class Page {
     public Page() {
     }
 
-    public Page(int number, String content, String chapter, Book book) {
+    public Page(Long id, int number, String content, String chapter, Book book) {
+        this.id = id;
         this.number = number;
         this.content = content;
         this.chapter = chapter;
         this.book = book;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
