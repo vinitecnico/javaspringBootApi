@@ -1,11 +1,13 @@
 package br.com.treinamento.springbootapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
 import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,20 +36,22 @@ public class BookServiceTest {
     private PageRepository _pageRepository;
 
     @Test
+    @DisplayName("Test getById Success")
+
     public void GetByIdReturnBook() {
         Book book = new Book(1L, "title", "author", "ispb");
-        when(_bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        doReturn(Optional.of(book)).when(_bookRepository).findById(1l);
 
         Book response = bookService.GetById(1L);
         assertEquals(1L, response.getId());
     }
 
-    // @Test
-    // public void GetByIdReturnNull() {
-    //     Book book = new Book();
-    //     when(_bookRepository.findById(1L)).thenReturn(Optional.of(book));
+    @Test
+    @DisplayName("Test getById Not Found")
+    public void GetByIdReturnNotFound() {
+        doReturn(Optional.empty()).when(_bookRepository).findById(1l);
 
-    //     Book response = bookService.GetById(1L);
-    //     assertEquals(null, response);
-    // }
+        Book response = bookService.GetById(1L);
+        assertEquals(null, response);
+    }
 }
