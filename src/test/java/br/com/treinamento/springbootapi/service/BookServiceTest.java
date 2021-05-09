@@ -1,12 +1,10 @@
-package br.com.treinamento.springbootapi;
+package br.com.treinamento.springbootapi.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import br.com.treinamento.springbootapi.entity.Book;
 import br.com.treinamento.springbootapi.repository.BookRepository;
 import br.com.treinamento.springbootapi.repository.PageRepository;
-import br.com.treinamento.springbootapi.service.BookService;
 
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
