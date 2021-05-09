@@ -45,3 +45,7 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=RootPassword -e MYSQL_DATABASE
 ## RUN project with maven
 
 ```` mvn spring-boot:run ````
+
+## RUN test
+
+```` mvn test ````
