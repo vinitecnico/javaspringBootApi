@@ -6,7 +6,6 @@ import br.com.treinamento.springbootapi.entity.Pessoa;
 import br.com.treinamento.springbootapi.repository.PessoaRepository;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.List;
 import java.util.Optional;
 
 // import javax.validation.Valid;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 
 /**
  * HelloController

@@ -1,7 +1,6 @@
 package br.com.treinamento.springbootapi.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
