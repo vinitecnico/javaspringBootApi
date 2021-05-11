@@ -38,6 +38,9 @@ Password: RootPassword
 docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=RootPassword -e MYSQL_DATABASE=Backoffice -e MYSQL_USER=MainUser -e MYSQL_PASSWORD=MainPassword mysql
 ````
 
+## download all the dependencies and build
+````mvn clean package````
+
 ## Swagger doc
 
 ```` http://localhost:8080/swagger-ui.html````
