@@ -7,57 +7,48 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import br.com.treinamento.springbootapi.AbstractTest;
 import br.com.treinamento.springbootapi.entity.Book;
 import br.com.treinamento.springbootapi.service.BookService;
 
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
+@AutoConfigureMockMvc
 @SpringBootTest
 @ActiveProfiles("controller")
-public class BookControllerTest {
+public class BookControllerTest extends AbstractTest {
     @InjectMocks
     BookController bookController;
-     
-    @Mock
-    BookService _bookService;
+                                                 
+    @MockBean                           
+    private BookService _bookService;
 
     @Test
-    @DisplayName("Test getById Success")
-    public void GetByIdReturnBook() 
-    {
+    @DisplayName("Test Create Book Return Success")
+    public void CreateBookReturnSuccess() throws Exception {
+        String uri = "/api/book";
         Book book = new Book(1L, "title", "author", "ispb");
-        when(_bookService.GetById(1L)).thenReturn(book);
- 
-        // when
-        ResponseEntity<Book> result = bookController.GetById(1l);
- 
-        // then
-        assertEquals(HttpStatus.OK.value(), result.getStatusCode().value());
-        assertEquals("title", result.getBody().getTitle());
-        assertEquals("author", result.getBody().getAuthor());
-        assertEquals("ispb", result.getBody().getIsbn());
-    }
+        when(_bookService.Post(book)).thenReturn(book);
 
-    @Test
-    @DisplayName("Test getById Not Found")
-    public void GetByIdReturnNotFound() 
-    {
-        Book book = null;
-        when(_bookService.GetById(1L)).thenReturn(book);
- 
-        // when
-        ResponseEntity<Book> result = bookController.GetById(1l);
- 
-        // then
-        assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatusCode().value());
-        assertEquals(null, result.getBody());
+        String inputJson = super.mapToJson(book);
+        MockHttpServletResponse response = mvc.perform(MockMvcRequestBuilders.post(uri)
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .content(inputJson))
+        .andReturn()
+        .getResponse();
+
+        assertEquals(response.getStatus(), HttpStatus.CREATED.value());
+        assertEquals(response.getContentAsString(), "");
     }
 }

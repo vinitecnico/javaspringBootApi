@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Book Post(@RequestBody Book book) {
-        return _bookService.Post(book);
+    public ResponseEntity<Book> Post(@RequestBody Book book) {
+        return new ResponseEntity<Book>(_bookService.Post(book), HttpStatus.CREATED);
     }
 }
