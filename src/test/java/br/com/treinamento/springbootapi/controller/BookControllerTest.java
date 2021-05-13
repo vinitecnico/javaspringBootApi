@@ -2,11 +2,16 @@ package br.com.treinamento.springbootapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doReturn;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +44,9 @@ public class BookControllerTest extends AbstractTest {
     public void CreateBookReturnSuccess() throws Exception {
         String uri = "/api/book";
         Book book = new Book(1L, "title", "author", "ispb");
-        when(_bookService.Post(book)).thenReturn(book);
+
+        when(_bookService.Post(isA(Book.class)))
+         .thenReturn(book);
 
         String inputJson = super.mapToJson(book);
         MockHttpServletResponse response = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -49,6 +56,10 @@ public class BookControllerTest extends AbstractTest {
         .getResponse();
 
         assertEquals(response.getStatus(), HttpStatus.CREATED.value());
-        assertEquals(response.getContentAsString(), "");
+        Book bookResponse = mapFromJson(response.getContentAsString(), Book.class);
+        assertEquals(bookResponse.getId(), 1L);
+        assertEquals(bookResponse.getTitle(), "title");
+        assertEquals(bookResponse.getAuthor(), "author");
+        assertEquals(bookResponse.getIsbn(), "ispb");
     }
 }
